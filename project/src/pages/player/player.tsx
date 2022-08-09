@@ -1,4 +1,4 @@
-export const Player = (): JSX.Element => (
+const Player = (): JSX.Element => (
   <div className="player">
     <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
@@ -32,3 +32,5 @@ export const Player = (): JSX.Element => (
     </div>
   </div>
 );
+
+export default Player;

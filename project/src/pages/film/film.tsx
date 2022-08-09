@@ -1,4 +1,4 @@
-export const Film = (): JSX.Element => (
+const Film = (): JSX.Element => (
   <>
     <section className="film-card film-card--full">
       <div className="film-card__hero">
@@ -171,3 +171,5 @@ export const Film = (): JSX.Element => (
     </div>
   </>
 );
+
+export default Film;

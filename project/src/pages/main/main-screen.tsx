@@ -1,12 +1,12 @@
-import {FilmCard} from '../../components/film-card/film-card';
+import FilmCard from '../../components/film-card/film-card';
 
-type MainScreenProps = {
+type Props = {
   filmTitle: string
   filmGenre: string
   filmReleaseDate: string
 }
 
-export const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: MainScreenProps): JSX.Element => (
+const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: Props): JSX.Element => (
   <>
     <section className="film-card">
       <div className="film-card__bg">
@@ -153,3 +153,5 @@ export const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: MainScreenPr
 
   </>
 );
+
+export default MainScreen;

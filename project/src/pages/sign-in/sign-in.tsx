@@ -1,4 +1,4 @@
-export const SignIn = (): JSX.Element => (
+const SignIn = (): JSX.Element => (
   <div className="user-page">
     <header className="page-header user-page__head">
       <div className="logo">
@@ -49,3 +49,5 @@ export const SignIn = (): JSX.Element => (
     </footer>
   </div>
 );
+
+export default SignIn;

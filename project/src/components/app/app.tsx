@@ -1,6 +1,17 @@
-import {MainScreen} from '../../pages/main/main-screen';
+import MainScreen from '../../pages/main/main-screen';
 
-export const App = (): JSX.Element =>
-  <MainScreen filmTitle='The Grand Budapest Hotel' filmGenre='Drama' filmReleaseDate='2014'/>;
+type Props= {
+  filmGenre: string;
+  filmReleaseDate: string;
+  filmTitle: string;
+};
+
+const App = ({filmGenre, filmReleaseDate, filmTitle}: Props): JSX.Element => (
+  <MainScreen
+    filmGenre = {filmGenre}
+    filmReleaseDate = {filmReleaseDate}
+    filmTitle = {filmTitle}
+  />
+);
 
 export default App;
