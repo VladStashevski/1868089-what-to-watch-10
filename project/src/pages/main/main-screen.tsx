@@ -1,37 +1,35 @@
+import {Link} from 'react-router-dom';
+import { AppRoute } from '../../const';
 import FilmCard from '../../components/film-card/film-card';
+import Logo from '../../components/logo/logo';
+
 
 type Props = {
-  filmTitle: string
-  filmGenre: string
-  filmReleaseDate: string
-}
+  genre: string;
+  date: string;
+  titleFilm: string;
+};
 
-const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: Props): JSX.Element => (
-  <>
+const Main = ({genre, date, titleFilm}: Props): JSX.Element => (
+  <section>
     <section className="film-card">
       <div className="film-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header film-card__head">
-        <div className="logo">
-          <a className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo />
 
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <a className="user-block__link" href='/'>Sign out</a>
           </li>
         </ul>
       </header>
@@ -39,16 +37,14 @@ const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: Props): JSX.Element
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${filmTitle} poster`} width="218"
-              height="327"
-            />
+            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{filmTitle}</h2>
+            <h2 className="film-card__title">{titleFilm}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{filmGenre}</span>
-              <span className="film-card__year">{filmReleaseDate}</span>
+              <span className="film-card__genre">{genre}</span>
+              <span className="film-card__year">{date}</span>
             </p>
 
             <div className="film-card__buttons">
@@ -77,58 +73,60 @@ const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: Props): JSX.Element
 
         <ul className="catalog__genres-list">
           <li className="catalog__genres-item catalog__genres-item--active">
-            <a href="#" className="catalog__genres-link">All genres</a>
+            <a href="/" className="catalog__genres-link">All genres</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Comedies</a>
+            <a href="/" className="catalog__genres-link">Comedies</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Crime</a>
+            <a href="/" className="catalog__genres-link">Crime</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Documentary</a>
+            <a href="/" className="catalog__genres-link">Documentary</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Dramas</a>
+            <a href="/" className="catalog__genres-link">Dramas</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Horror</a>
+            <a href="/" className="catalog__genres-link">Horror</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Kids & Family</a>
+            <a href="/" className="catalog__genres-link">Kids & Family</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Romance</a>
+            <a href="/" className="catalog__genres-link">Romance</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Sci-Fi</a>
+            <a href="/" className="catalog__genres-link">Sci-Fi</a>
           </li>
           <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Thrillers</a>
+            <a href="/" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
 
         <div className="catalog__films-list">
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
-          <FilmCard/>
+
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+          <FilmCard />
+
         </div>
 
         <div className="catalog__more">
@@ -138,11 +136,11 @@ const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: Props): JSX.Element
 
       <footer className="page-footer">
         <div className="logo">
-          <a className="logo__link logo__link--light">
+          <Link className="logo__link" to={AppRoute.Main}>
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <div className="copyright">
@@ -150,8 +148,7 @@ const MainScreen = ({filmTitle, filmGenre, filmReleaseDate}: Props): JSX.Element
         </div>
       </footer>
     </div>
-
-  </>
+  </section>
 );
 
-export default MainScreen;
+export default Main;
