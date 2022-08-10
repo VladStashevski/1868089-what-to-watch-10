@@ -1,5 +1,8 @@
+import {Link} from 'react-router-dom';
+import { AppRoute } from '../../const';
 import FilmCard from '../../components/film-card/film-card';
 import Logo from '../../components/logo/logo';
+
 
 type Props = {
   genre: string;
@@ -133,11 +136,11 @@ const Main = ({genre, date, titleFilm}: Props): JSX.Element => (
 
       <footer className="page-footer">
         <div className="logo">
-          <a className="logo__link logo__link--light" href="/">
+          <Link className="logo__link" to={AppRoute.Main}>
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <div className="copyright">

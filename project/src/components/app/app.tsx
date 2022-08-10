@@ -8,6 +8,7 @@ import Review from '../../pages/review/review';
 import Player from '../../pages/player/player';
 import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../../components/private-route/private-route';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 type Props= {
   genre: string;
@@ -18,7 +19,7 @@ type Props= {
 const App = ({genre, date, titleFilm}: Props): JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route path={'/'} element={<Main genre = {genre} date={date} titleFilm={titleFilm}/>}/>
+      <Route path={AppRoute.Main} element={<Main genre = {genre} date={date} titleFilm={titleFilm}/>}/>
       <Route path={AppRoute.Film} element={<Film />}/>
       <Route path={AppRoute.SignIn} element={<SignIn />}/>
       <Route path={AppRoute.Review} element={<Review />}/>
@@ -30,8 +31,14 @@ const App = ({genre, date, titleFilm}: Props): JSX.Element => (
         </PrivateRoute>
       }
       />
+      <Route
+        path={AppRoute.NotFound}
+        element={
+          <NotFoundScreen />
+        }
+      />
 
-      <Route path='*' element={<NotFoundPage />}/>
+      <Route path={AppRoute.Other} element={<NotFoundPage />}/>
     </Routes>
   </BrowserRouter>
 );
