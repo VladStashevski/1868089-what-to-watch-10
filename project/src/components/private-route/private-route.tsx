@@ -13,3 +13,4 @@ const PrivateRoute = ({authorizationStatus, children}: Props): JSX.Element => (
 );
 
 export default PrivateRoute;
+
