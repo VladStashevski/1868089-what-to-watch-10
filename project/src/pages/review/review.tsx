@@ -2,12 +2,12 @@ import {AppRoute} from '../../const';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserLogo from '../../components/logo-user/logo-user';
-import {ScreenProps, FilmId} from '../../types/films';
+import {ScreenProps} from '../../types/films';
 import UserCommentForm from '../../components/comment-form/comment-form';
 
 function AddReview({films}: ScreenProps): JSX.Element {
-  const {id} = useParams<FilmId>();
-  const filmIndexInList = parseInt((id || '1'), 10) - 1;
+  const {id} = useParams<{id: string}>();
+  const filmIndexInList = Number(id) - 1;
 
   const {name, backgroundImage, posterImage} = films[filmIndexInList];
 

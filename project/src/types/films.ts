@@ -1,3 +1,5 @@
+import Comments from '../types/comments';
+
 type Film = {
   id: number;
   name: string;
@@ -18,14 +20,21 @@ type Film = {
   isFavorite: boolean;
 }
 
-type FilmId = {
-  id: string
-}
-
 type Films = Film[]
 
 type ScreenProps = {
   films: Films
 }
 
-export type {ScreenProps, Films, FilmId};
+type FilmsCommentsProps = {
+  films: Films
+  comments: Comments;
+}
+
+type FilmTabProps = {
+  film: Film;
+}
+
+type TabEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent> & {target: {tagName: string; textContent: string}}
+
+export type {ScreenProps, Film, Films, FilmTabProps, FilmsCommentsProps, TabEvent};

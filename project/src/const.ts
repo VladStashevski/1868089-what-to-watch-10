@@ -15,6 +15,8 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const MAX_SHOW_SIMILAR_FILMS = 4;
+
 export const AMOUNT_SIMILAR_FILMS = 4;
 
 export const RATING_STARS_COUNT = 10;
