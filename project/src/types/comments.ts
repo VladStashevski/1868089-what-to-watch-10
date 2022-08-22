@@ -11,6 +11,12 @@ type Comment = {
   user: User
 }
 
+type UserComment = {
+  comment: string
+  rating: number
+  filmId: number
+}
+
 type Comments = Comment[]
 
-export default Comments;
+export type {Comments, UserComment};

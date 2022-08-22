@@ -3,16 +3,17 @@ import {Film, TabEvent} from '../../types/films';
 import Details from '../film-details/film-detais';
 import FilmInfo from '../film-info/film-info';
 import Reviews from '../reviews/reviews';
-import Comments from '../../types/comments';
-import TabBar from '../tabs/tab';
+import {Comments} from '../../types/comments';
+import FilmTabBar from './film-tabbar';
+import {OVERVIEW_TAB} from '../../constants/const';
 
 type TabsProps = {
   comments: Comments;
   currentFilm: Film;
 }
 
-function Tabs({comments, currentFilm}: TabsProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState('Overview');
+function FilmTabs({comments, currentFilm}: TabsProps): JSX.Element {
+  const [activeFilmTab, setActiveFilmTab] = useState(OVERVIEW_TAB);
 
   const tabs = new Map([
     ['Overview', <FilmInfo key={0} film={currentFilm} />],
@@ -20,21 +21,19 @@ function Tabs({comments, currentFilm}: TabsProps): JSX.Element {
     ['Reviews', <Reviews key={2} comments={comments} />]
   ]);
 
-  const handleTabClick = (evt: TabEvent) => {
-    if (evt.target.tagName === 'A') {
-      evt.preventDefault();
-      setActiveTab(evt.target.textContent);
-    }
+  const onTabClick = (evt: TabEvent) => {
+    evt.preventDefault();
+    setActiveFilmTab(evt.target.textContent);
   };
 
   return (
     <>
       <nav className="film-nav film-card__nav">
-        <TabBar activeTab={activeTab} onTabClick={handleTabClick} titleTabs={Array.from(tabs.keys())} />
+        <FilmTabBar activeTab={activeFilmTab} onTabClick={onTabClick} titleTabs={Array.from(tabs.keys())} />
       </nav>
-      {tabs.get(activeTab)}
+      {tabs.get(activeFilmTab)}
     </>
   );
 }
 
-export default Tabs;
+export default FilmTabs;

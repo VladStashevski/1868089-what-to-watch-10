@@ -1,4 +1,4 @@
-import Comments from '../types/comments';
+import {Comments} from '../types/comments';
 
 type Film = {
   id: number;

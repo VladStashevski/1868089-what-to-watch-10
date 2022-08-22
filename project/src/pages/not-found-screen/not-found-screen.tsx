@@ -1,4 +1,4 @@
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../constants/const';
 import { Link } from 'react-router-dom';
 
 function NotFoundScreen(): JSX.Element {

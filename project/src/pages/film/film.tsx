@@ -1,5 +1,5 @@
 import {Link, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../constants/const';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserLogo from '../../components/logo-user/logo-user';
@@ -7,7 +7,7 @@ import {FilmsCommentsProps} from '../../types/films';
 import FilmsList from '../../components/films-list/films-list';
 import {useNavigate} from 'react-router-dom';
 import UseScrollToTop from '../../hooks/use-scroll-to-top';
-import Tabs from '../../components/tabs/tabs';
+import Tabs from '../../components/tabs/film-tabs';
 
 function Film({films, comments}: FilmsCommentsProps): JSX.Element {
   const navigate = useNavigate();

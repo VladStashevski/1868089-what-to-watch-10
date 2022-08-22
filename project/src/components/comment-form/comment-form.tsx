@@ -1,4 +1,4 @@
-import {RATING_STARS_COUNT} from '../../const';
+import {RATING_STARS_COUNT} from '../../constants/const';
 import {Fragment, useState} from 'react';
 
 type inputEvent = React.FormEvent<HTMLFormElement> & {target: {value: number; tagName: string}};

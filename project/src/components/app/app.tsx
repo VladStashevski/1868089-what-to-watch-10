@@ -1,12 +1,12 @@
 import SignIn from '../../pages/sign-in/sign-in';
-import Review from '../../pages/review/review';
+import Review from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import Film from '../../pages/film/film';
 import MainPage from '../../pages/main/main';
 import MyList from '../../pages/my-list/my-list';
 import NotFoundPage from '../not-found-page/not-found-page';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../constants/const';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import {FilmsCommentsProps} from '../../types/films';

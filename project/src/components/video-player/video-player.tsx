@@ -1,5 +1,5 @@
 import {useRef, useEffect} from 'react';
-import {TIME_UNTIL_ACTIVATION_PREVIEW} from '../../const';
+import {TIME_UNTIL_ACTIVATION_PREVIEW} from '../../constants/const';
 
 type VideoPlayerProps = {
   previewImage: string;

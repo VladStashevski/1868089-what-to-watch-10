@@ -1,4 +1,4 @@
-import {TextFormRating} from '../../const';
+import {TextFormRating} from '../../constants/const';
 import {FilmTabProps} from '../../types/films';
 
 function FilmInfo({film}: FilmTabProps): JSX.Element {

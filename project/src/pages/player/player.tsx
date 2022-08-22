@@ -1,9 +1,18 @@
 import {useParams} from 'react-router-dom';
 import {ScreenProps} from '../../types/films';
+import NotFound from '../../components/not-found-page/not-found-page';
 
 function Player({films}: ScreenProps): JSX.Element {
-  const {id = '1'} = useParams<{id: string}>() ;
+  const params = useParams();
+  const id = params.id;
+  const film = films.find((movie) => String(movie.id) === id);
   const filmIndexInList: number = Number(id) - 1;
+
+  if (!film) {
+    return (
+      <NotFound />
+    );
+  }
 
   const {videoLink, backgroundImage} = films[filmIndexInList];
 

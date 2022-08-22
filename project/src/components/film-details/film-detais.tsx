@@ -1,5 +1,5 @@
 import {Fragment} from 'react';
-import {HOUR_IN_MINUTES} from '../../const';
+import {HOUR_IN_MINUTES} from '../../constants/const';
 import {FilmTabProps} from '../../types/films';
 
 function FilmDetails({film}: FilmTabProps): JSX.Element {

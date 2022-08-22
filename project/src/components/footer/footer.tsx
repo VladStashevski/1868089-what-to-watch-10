@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../constants/const';
 
 const Footer = (): JSX.Element => (
   <footer className="page-footer">

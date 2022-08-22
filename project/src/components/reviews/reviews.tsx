@@ -1,6 +1,7 @@
 import FilmComment from '../comment/comment';
 import {useParams} from 'react-router-dom';
-import Comments from '../../types/comments';
+import {Comments} from '../../types/comments';
+import NoReviews from '../no-reviews/no-reviews';
 
 type CommentsProps = {
   comments: Comments
@@ -13,7 +14,9 @@ function FilmReviews({comments}: CommentsProps): JSX.Element {
   const commentsByFilm = comments.filter((comment) => comment.id === idToNumber);
 
   if (commentsByFilm.length === 0) {
-    return <> </>;
+    return (
+      <NoReviews />
+    );
   }
 
   const firsCommentsColumn = commentsByFilm.slice(0, Math.ceil(commentsByFilm.length / 2));
