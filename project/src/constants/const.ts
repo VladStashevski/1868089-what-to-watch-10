@@ -15,15 +15,25 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const AMOUNT_SIMILAR_FILMS = 4;
+export const filmTabNames = [
+  'Overview',
+  'Details',
+  'Reviews'
+];
+
+export const MAX_SHOW_SIMILAR_FILMS = 4;
+
+export const TIME_UNTIL_ACTIVATION_PREVIEW = 1000;
+
+export const ALL_GENRES = 'All genres';
 
 export const RATING_STARS_COUNT = 10;
+
+export const OVERVIEW_TAB = 'Overview';
 
 export const AMOUNT_FILMS_PER_STEP = 8;
 
 export const HOUR_IN_MINUTES = 60;
-
-export const TIME_UNTIL_ACTIVATION_PREVIEW = 1000;
 
 export enum TextFormRating {
   Bad = 'Bad',

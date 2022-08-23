@@ -1,22 +1,20 @@
 import {useParams} from 'react-router-dom';
-import {ScreenProps, FilmId} from '../../types/films';
+import {ScreenProps} from '../../types/films';
+import NotFound from '../../components/not-found-page/not-found-page';
 
 function Player({films}: ScreenProps): JSX.Element {
-  const {id} = useParams<FilmId>() ;
-  const filmIndexInList: number = parseInt((id || '1'), 10) - 1;
+  const params = useParams();
+  const id = params.id;
+  const film = films.find((movie) => String(movie.id) === id);
+  const filmIndexInList: number = Number(id) - 1;
 
-  const {videoLink, runTime, backgroundImage} = films[filmIndexInList];
+  if (!film) {
+    return (
+      <NotFound />
+    );
+  }
 
-  const transformFilmDuration = (): string => {
-    const hours = Math.trunc(runTime / 60);
-    const minutes = runTime % 60;
-
-    if (runTime < 60) {
-      return `${minutes}:00`;
-    }
-
-    return `${hours}:${minutes}:00`;
-  };
+  const {videoLink, backgroundImage} = films[filmIndexInList];
 
   return (
     <div className="player">
@@ -30,7 +28,6 @@ function Player({films}: ScreenProps): JSX.Element {
             <progress className="player__progress" value="30" max="100"></progress>
             <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
           </div>
-          <div className="player__time-value">{transformFilmDuration()}</div>
         </div>
 
         <div className="player__controls-row">

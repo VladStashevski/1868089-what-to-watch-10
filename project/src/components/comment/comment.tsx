@@ -26,7 +26,7 @@ function FilmComment(props: CommentProps): JSX.Element {
 
         <footer className="review__details">
           <cite className="review__author">{user.name}</cite>
-          <time className="review__date" dateTime="2016-12-24">{dayjs(date).format('MMMM DD, YYYY')}</time>
+          <time className="review__date" dateTime={date}>{dayjs(date).format('YYYY-MM-DD')}</time>
         </footer>
       </blockquote>
 

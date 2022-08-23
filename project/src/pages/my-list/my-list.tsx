@@ -1,4 +1,4 @@
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../constants/const';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserLogo from '../../components/logo-user/logo-user';
