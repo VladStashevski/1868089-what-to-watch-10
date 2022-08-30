@@ -1,3 +1,17 @@
+export const VIDEO_TIMEOUT = 1000;
+export const MAX_GENRES_COUNT = 9;
+export const FILMS_SHOWN_COUNT = 8;
+export const BACKEND_URL = 'https://10.react.pages.academy/wtw';
+export const REQUEST_TIMEOUT = 5000;
+export const MAX_GENRE_FILTER_COUNT = 4;
+export const FILM_LOADER_COLOR = '#eee5b5';
+export const FILM_LOADER_SIZE = 100;
+export const SECONDS_IN_HOUR = 3600;
+export const MAX_RATE = 10;
+export const DEFAULT_RATE = 0;
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 400;
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -6,6 +20,7 @@ export enum AppRoute {
   Review = '/films/:id/review',
   Player = '/player/:id',
   NotFound = '/not_found',
+  AddReview = 'review',
   Other = '*'
 }
 
@@ -21,24 +36,23 @@ export const filmTabNames = [
   'Reviews'
 ];
 
-export const MAX_SHOW_SIMILAR_FILMS = 4;
-
-export const TIME_UNTIL_ACTIVATION_PREVIEW = 1000;
-
-export const ALL_GENRES = 'All genres';
-
-export const RATING_STARS_COUNT = 10;
-
-export const OVERVIEW_TAB = 'Overview';
-
-export const AMOUNT_FILMS_PER_STEP = 8;
-
-export const HOUR_IN_MINUTES = 60;
-
-export enum TextFormRating {
-  Bad = 'Bad',
-  Normal = 'Normal',
-  Good = 'Good',
-  VeryGood = 'Very good',
-  Awesome = 'Awesome'
+export enum APIRoute {
+  Films = '/films',
+  Promo = '/promo',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
+  Favorite = '/favorite'
 }
+
+export enum SliceName {
+  Auth = 'AUTH',
+  Promo = 'PROMO',
+  Films = 'FILMS',
+  Favorite = 'FAVORITE'
+}
+
+export const СheckCorrectSignin = {
+  Email: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+  Password: /^(?=^[a-zA-Z0-9]{2,}$)(?=.*\d)(?=.*[a-zA-Z]).*$/
+};

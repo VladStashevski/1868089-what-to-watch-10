@@ -1,48 +1,47 @@
 import {Link} from 'react-router-dom';
-import {ScreenProps} from '../../types/films';
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {changeGenre, receiveFilmsByGenre} from '../../store/action';
-import {ALL_GENRES} from '../../constants/const';
+import {getGenres} from '../../utils/utils';
+import {setSelectedGenre, clearSelectedGenre} from '../../store/films-slice/films-slice';
+import {selectFilms, selectActiveGenre} from '../../store/films-slice/selector';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {MAX_GENRES_COUNT} from '../../constants/const';
 
-type EventGenreClick = {preventDefault: () => void; target: {textContent: string}} & React.MouseEvent<HTMLAnchorElement, MouseEvent>
-
-function GenresList({films}: ScreenProps) {
-  const {genre} = useAppSelector((state) => state);
-
+export default function GenresList(): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const uniqueGenres = Array.from(new Set(films.map((film) => film.genre)));
-
-  const handleGenreClick = (evt: EventGenreClick) => {
-    evt.preventDefault();
-
-    if (genre === evt.target.textContent) {
-      return;
-    }
-    dispatch(changeGenre(evt.target.textContent));
-    dispatch(receiveFilmsByGenre());
-  };
+  const allMovies = useAppSelector(selectFilms);
+  const selectedGenre = useAppSelector(selectActiveGenre);
+  const genres = getGenres(allMovies);
 
   return (
     <ul className="catalog__genres-list">
-      {uniqueGenres.map((filmGenre, index) => (
-        <li
-          key={index++}
-          className={(genre === ALL_GENRES && index === 0) || genre === filmGenre ?
-            'catalog__genres-item catalog__genres-item--active' :
-            'catalog__genres-item'}
+      <li
+        key={'allGenres'}
+        className={`catalog__genres-item  ${!selectedGenre ? 'catalog__genres-item--active' : ''}`}
+      >
+        <Link
+          className="catalog__genres-link"
+          to=''
+          onClick={() => dispatch(clearSelectedGenre())}
         >
-          <Link
-            to="#"
-            className="catalog__genres-link"
-            onClick={handleGenreClick}
+          All genres
+        </Link>
+      </li>
+      {
+        genres.map((genre) => (
+          <li
+            key={genre}
+            className={`catalog__genres-item  ${selectedGenre === genre ? 'catalog__genres-item--active' : ''}`}
           >
-            {index === 0 ? ALL_GENRES : filmGenre}
-          </Link>
-        </li>
-      ))}
+            <Link
+              className="catalog__genres-link"
+              to=''
+              onClick={() => dispatch(setSelectedGenre(genre))}
+            >{genre}
+            </Link>
+          </li>
+        ))
+          .slice(0, MAX_GENRES_COUNT)
+      }
     </ul>
   );
 }
-
-export default GenresList;

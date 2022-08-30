@@ -1,43 +1,53 @@
-import SignIn from '../../pages/sign-in/sign-in';
-import Review from '../../pages/add-review/add-review';
-import Player from '../../pages/player/player';
-import Film from '../../pages/film/film';
+import {AppRoute} from '../../constants/const';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {Routes, Route} from 'react-router-dom';
+import {selectAuthorizationStatus} from '../../store/user-process/selector';
+import {selectIsLoadingPromo, selectIsErrorLoadingPromo} from '../../store/promo-slice/selector';
+import {selectIsLoadingFilms, selectIsErrorLoadingFilms} from '../../store/films-slice/selector';
+import {isAuthorizationStatusDefined} from '../../utils/utils';
+import Loading from '../../pages/loading/loading';
+import HistoryRouter from '../history-router/history-router';
 import MainPage from '../../pages/main/main';
+import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
-import NotFoundPage from '../not-found-page/not-found-page';
-import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import {AppRoute, AuthorizationStatus} from '../../constants/const';
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import FilmPage from '../../pages/film/film';
+import AddReview from '../../pages/add-review/add-review';
+import Player from '../../pages/player/player';
+import NotFound from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import {FilmsCommentsProps} from '../../types/films';
+import browserHistory from '../../constants/browser-history';
+import Error from '../error/error';
 
+function App (): JSX.Element {
+  const isLoadingFilms = useAppSelector(selectIsLoadingFilms);
+  const isErrorLoadingFilms = useAppSelector(selectIsErrorLoadingFilms);
+  const isLoadingPromo = useAppSelector(selectIsLoadingPromo);
+  const isErrorLoadingPromo = useAppSelector(selectIsErrorLoadingPromo);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
-function App({films, comments}: FilmsCommentsProps): JSX.Element {
+  if (!isAuthorizationStatusDefined(authorizationStatus) || isLoadingFilms || isLoadingPromo) {
+    return (<Loading />);
+  }
+
+  if (isErrorLoadingFilms || isErrorLoadingPromo) {
+    return (<Error />);
+  }
+
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route path={AppRoute.Main} element={ <MainPage films={films} />}/>
+        <Route path={AppRoute.Main} element={<MainPage />}/>
         <Route path={AppRoute.SignIn} element={<SignIn />}/>
-        <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <MyList films={films} />
-          </PrivateRoute>
-        }
-        />
+        <Route path={AppRoute.MyList} element={<PrivateRoute><MyList /></PrivateRoute>}/>
         <Route path={AppRoute.Film}>
-          <Route path=':id' element={<Film films={films} comments={comments} />}/>
+          <Route path=':id' element={<FilmPage />}></Route>
+          <Route path=':id/review' element={<PrivateRoute><AddReview /></PrivateRoute>}/>
         </Route>
-        <Route path={AppRoute.Review} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <Review films={films} />
-          </PrivateRoute>
-        }
-        />
-        <Route path={AppRoute.Player} element={<Player films={films} />} />
-        <Route path={AppRoute.NotFound} element={<NotFoundScreen />}/>
-        <Route path={AppRoute.Other} element={<NotFoundPage />}/>
+        <Route path={AppRoute.Player}><Route path=':id' element={<Player />}/></Route>
+        <Route path={AppRoute.NotFound} element={<NotFound />}/>
+        <Route path={AppRoute.Other} element={<NotFound />}/>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

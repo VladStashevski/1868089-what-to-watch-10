@@ -1,11 +1,32 @@
+import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
-import { AppRoute } from '../../constants/const';
 
-const NotFoundPage = (): JSX.Element => (
-  <>
-    <h1>404. Page not found</h1>
-    <Link to={AppRoute.Main}>Go to main page</Link>
-  </>
-);
+export default function NotFound(): JSX.Element {
+  return (
+    <div className="user-page">
+      <header className="page-header user-page__head">
+        <Logo light={false} />
+      </header>
 
-export default NotFoundPage;
+      <div className="user-page__content">
+        <h1 className="page-title user-page__title user-page__title--not-found">
+          404 Not Found
+        </h1>
+        <Link
+          className="logo__link logo__link--not-found"
+          to="/"
+        >
+          Вернуться на главную
+        </Link>
+      </div>
+
+      <footer className="page-footer">
+        <Logo light />
+
+        <div className="copyright">
+          <p>© 2019 What to watch Ltd.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}

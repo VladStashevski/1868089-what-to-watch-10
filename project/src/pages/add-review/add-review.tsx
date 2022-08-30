@@ -1,55 +1,60 @@
-import {AppRoute} from '../../constants/const';
-import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import UserLogo from '../../components/logo-user/logo-user';
-import {ScreenProps} from '../../types/films';
-import UserCommentForm from '../../components/comment-form/comment-form';
+import AddReviewForm from '../../components/add-review-form/add-review-form';
+import { Link, useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import NotFound from '../../components/not-found-page/not-found-page';
+import { AppRoute } from '../../constants/const';
+import UserLogo from '../../components/user-logo/user-logo';
+import { selectFilms } from '../../store/films-slice/selector';
 
-function AddReview({films}: ScreenProps): JSX.Element {
-  const {id} = useParams<{id: string}>();
-  const filmIndexInList = Number(id) - 1;
+export default function AddReview(): JSX.Element {
+  const allFilms = useAppSelector(selectFilms);
+  const params = useParams();
+  const id = params.id;
+  const film = allFilms.find((movie) => String(movie.id) === id);
 
-  const {name, backgroundImage, posterImage} = films[filmIndexInList];
+  if (!film) {
+    return (
+      <NotFound />
+    );
+  }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={backgroundImage} alt={name} />
+          <img src={film.backgroundImage} alt={film.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
+          <Logo light={false} />
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`${AppRoute.Film}/${id}`} className="breadcrumbs__link">{name}</Link>
+                <Link className="breadcrumbs__link" to={`${AppRoute.Film}/${id}`}>{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link to={`${AppRoute.Film}/${id}/review`} className="breadcrumbs__link">Add review</Link>
+                <Link className="breadcrumbs__link" to=''>Add review</Link>
               </li>
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <UserLogo path={AppRoute.Main} />
-          </ul>
+          <UserLogo />
+
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={posterImage} alt={name} width="218" height="327" />
+          <img src={film.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
 
       <div className="add-review">
-        <UserCommentForm />
+        <AddReviewForm />
       </div>
 
     </section>
   );
 }
-
-export default AddReview;

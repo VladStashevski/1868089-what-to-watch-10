@@ -1,54 +1,39 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {useState} from 'react';
-import {AppRoute, AMOUNT_FILMS_PER_STEP} from '../../constants/const';
-import VideoPlayer from '../video-player/video-player';
-import {useAppDispatch} from '../../hooks/index';
-import {showMoreFilms} from '../../store/action';
+import {Film} from '../../types/films';
+import {AppRoute} from '../../constants/const';
+import VideoPlayer from '../../components/video-player/video-player';
 
 type FilmCardProps = {
-  id: number;
-  name: string;
-  previewImage: string;
-  previewVideoLink: string;
+  film: Film;
+  activeFilm: number | null;
+  onFilmCardMouseOverHandler: (id: number) => void;
+  onFilmCardMouseOutHandler: () => void;
 }
 
-function FilmCard({name, previewImage, id, previewVideoLink}: FilmCardProps): JSX.Element {
+export default function FilmCard({ film, activeFilm, onFilmCardMouseOverHandler, onFilmCardMouseOutHandler }: FilmCardProps): JSX.Element {
+  const { id, name, previewImage } = film;
   const navigate = useNavigate();
-  const [isPlayer, setPlayer] = useState(false);
-  const dispatch = useAppDispatch();
+  const handleMouseOver = (): void => onFilmCardMouseOverHandler(id);
+  const handleMouseOut = onFilmCardMouseOutHandler;
 
   return (
-    <article
-      className="small-film-card catalog__films-card"
-      onMouseOver={() => {
-        setPlayer(true);
-      }}
-      onMouseOut={() => {
-        setPlayer(false);
-      }}
+    <article className="small-film-card catalog__films-card"
+      onClick={() => navigate(`${AppRoute.Film}/${id}`)}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
-      <div className="small-film-card__image" onClick={
-        () => {
-          navigate(`${AppRoute.Film}/${id}`);
-          dispatch(showMoreFilms(AMOUNT_FILMS_PER_STEP));
-        }
-      }
-      >
-        {
-          isPlayer ? <VideoPlayer previewImage={previewImage} previewVideoLink={previewVideoLink} /> :
-            <img src={previewImage} alt={name} width="280" height="175" />
-        }
+      <div className="small-film-card__image">
+        {activeFilm === id ? (
+          <VideoPlayer film={film}
+            activeFilm={activeFilm}
+          />
+        ) : (
+          <img src={previewImage} alt={name} width="280" height="175" />
+        )}
       </div>
       <h3 className="small-film-card__title">
-        <Link
-          className="small-film-card__link" to={`${AppRoute.Film}/${id}`}
-          onClick={() => dispatch(showMoreFilms(AMOUNT_FILMS_PER_STEP))}
-        >
-          {name}
-        </Link>
+        <Link className="small-film-card__link" to={`${AppRoute.Film}/${id}`}>{name}</Link>
       </h3>
     </article>
   );
 }
-
-export default FilmCard;

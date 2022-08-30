@@ -1,24 +1,40 @@
-import {useRef, useEffect} from 'react';
-import {TIME_UNTIL_ACTIVATION_PREVIEW} from '../../constants/const';
+import {useEffect, useRef} from 'react';
+import {Film} from '../../types/films';
+import {VIDEO_TIMEOUT} from '../../constants/const';
 
 type VideoPlayerProps = {
-  previewImage: string;
-  previewVideoLink: string;
+  activeFilm: number | null;
+  film: Film;
 }
 
-function VideoPlayer({previewImage, previewVideoLink}: VideoPlayerProps): JSX.Element {
+export default function VideoPlayer({ activeFilm, film }: VideoPlayerProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const timeoutId = setTimeout(
-      () => videoRef.current?.play(),
-      TIME_UNTIL_ACTIVATION_PREVIEW
-    );
+    if (videoRef.current === null) {
+      return;
+    }
 
-    return () => clearTimeout(timeoutId);
-  });
+    if (activeFilm) {
+      setTimeout(() => {
+        if(videoRef.current) {
+          videoRef.current.play();
+        }
+      }, VIDEO_TIMEOUT);
+    }
 
-  return <video ref={videoRef} height="175" src={previewVideoLink} muted loop poster={previewImage}/>;
+    videoRef.current.pause();
+  }, [activeFilm]);
+
+  return (
+    <video
+      className="player__video"
+      muted
+      loop
+      src={film.previewVideoLink}
+      poster={film.previewImage}
+      ref={videoRef}
+    >
+    </video>
+  );
 }
-
-export default VideoPlayer;

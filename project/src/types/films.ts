@@ -1,14 +1,9 @@
-import {Comments} from '../types/comments';
-
-type Film = {
-  id: number;
+export type Film = {
   name: string;
   posterImage: string;
   previewImage: string;
   backgroundImage: string;
   backgroundColor: string;
-  videoLink: string;
-  previewVideoLink: string;
   description: string;
   rating: number;
   scoresCount: number;
@@ -17,24 +12,26 @@ type Film = {
   runTime: number;
   genre: string;
   released: number;
+  id: number;
   isFavorite: boolean;
-}
+  videoLink: string;
+  previewVideoLink: string;
+};
 
-type Films = Film[]
+export type FilmStatus = {
+  id: number;
+  status: number;
+};
 
-type ScreenProps = {
-  films: Films
-}
+export type AuthData = {
+  login: string;
+  password: string;
+};
 
-type FilmsCommentsProps = {
-  films: Films
-  comments: Comments;
-}
-
-type FilmTabProps = {
-  film: Film;
-}
-
-type TabEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent> & {target: {tagName: string; textContent: string}}
-
-export type {ScreenProps, Film, Films, FilmTabProps, FilmsCommentsProps, TabEvent};
+export type UserData = {
+  id: number
+  email: string;
+  name: string
+  token: string
+  avatarUrl: string;
+};
