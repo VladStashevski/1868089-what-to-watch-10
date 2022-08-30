@@ -1,6 +1,6 @@
-import {Films} from '../types/films';
+import {Film} from '../types/films';
 
-const films: Films = [
+export const films: Film[] = [
   {
     'id': 1,
     'name': 'Aviator',
@@ -577,5 +577,3 @@ const films: Films = [
     'isFavorite': false,
   }
 ];
-
-export default films;

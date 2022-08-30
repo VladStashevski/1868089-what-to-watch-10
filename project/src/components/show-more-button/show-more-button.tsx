@@ -1,16 +1,21 @@
-import {Films} from '../../types/films';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { showMoreFilms } from '../../store/films-slice/films-slice';
+import { memo } from 'react';
 
-type ShowMoreButtonProps = {
-  films: Films;
-  onShowMoreButtonClick: () => void;
-}
+function ShowMoreButton(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-function ShowMoreButton({films, onShowMoreButtonClick}: ShowMoreButtonProps): JSX.Element {
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={onShowMoreButtonClick}>Show more</button>
+      <button
+        className="catalog__button"
+        type="button"
+        onClick={() => dispatch(showMoreFilms())}
+      >
+        Show more
+      </button>
     </div>
   );
 }
 
-export default ShowMoreButton;
+export default memo(ShowMoreButton);

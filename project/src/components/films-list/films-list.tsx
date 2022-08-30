@@ -1,55 +1,37 @@
 import FilmCard from '../../components/film-card/film-card';
-import {Films} from '../../types/films';
-import {AMOUNT_FILMS_PER_STEP, MAX_SHOW_SIMILAR_FILMS} from '../../constants/const';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
+import {Film} from '../../types/films';
+import {useState, memo} from 'react';
 
-type FilmListProps = {
-  films: Films;
-  amountFilms?: number;
-  moreLikeThis?: boolean;
-  currentFilmId?: string;
+type FilmsListProps = {
+  films: Film[];
+  showButton: boolean;
 }
 
-function FilmsList({films, amountFilms = AMOUNT_FILMS_PER_STEP, moreLikeThis, currentFilmId}: FilmListProps): JSX.Element {
-  const getFilmsCards = (): JSX.Element[] => {
-    const filmsCards: JSX.Element[] = [];
+function FilmsList({ films, showButton }: FilmsListProps): JSX.Element {
+  const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
-    if (moreLikeThis) {
-      const indexComparedFilm = Number(currentFilmId) - 1;
-      const similarFilms = [
-        ...films.slice(0, indexComparedFilm),
-        ...films.slice(indexComparedFilm + 1)
-      ]
-        .filter((film) => film.genre === films[indexComparedFilm].genre)
-        .slice(0, MAX_SHOW_SIMILAR_FILMS);
+  const onFilmCardMouseOverHandler = (filmId: number): void => setActiveFilm(filmId);
 
-      return similarFilms.map((film) => (
-        <FilmCard
-          key={film.id}
-          {...film}
-        />
-      ));
-    }
+  const onFilmCardMouseOutHandler = (): void => setActiveFilm(null);
 
-    for (let i = 0; i < amountFilms && i !== films.length; i++) {
-      filmsCards.push(
-        <FilmCard
-          key={films[i].id}
-          name={films[i].name}
-          previewImage={films[i].previewImage}
-          id={films[i].id}
-          previewVideoLink={films[i].previewVideoLink}
-        />
-      );
-    }
-
-    return filmsCards;
-  };
+  const filmCards = films.map((film) =>
+    (
+      <FilmCard
+        key={film.id}
+        film={film}
+        activeFilm={activeFilm}
+        onFilmCardMouseOverHandler={onFilmCardMouseOverHandler}
+        onFilmCardMouseOutHandler={onFilmCardMouseOutHandler}
+      />
+    ));
 
   return (
     <div className="catalog__films-list">
-      {getFilmsCards()}
+      {filmCards}
+      {showButton && <ShowMoreButton />}
     </div>
   );
 }
 
-export default FilmsList;
+export default memo(FilmsList);

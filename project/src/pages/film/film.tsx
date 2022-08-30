@@ -1,84 +1,90 @@
-import {Link, useParams} from 'react-router-dom';
-import {AppRoute} from '../../constants/const';
 import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
-import UserLogo from '../../components/logo-user/logo-user';
-import {FilmsCommentsProps} from '../../types/films';
+import {useParams} from 'react-router-dom';
+import {useEffect} from 'react';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {fetchSimilarFilmsAction, fetchFilmAction, fetchFilmReviewsAction } from '../../store/api-actions';
+import NotFound from '../../components/not-found-page/not-found-page';
 import FilmsList from '../../components/films-list/films-list';
-import {useNavigate} from 'react-router-dom';
-import UseScrollToTop from '../../hooks/use-scroll-to-top';
-import Tabs from '../../components/tabs/film-tabs';
+import FilmTabs from '../../components/film-tabs/film-tabs';
+import UserBlock from '../../components/user-logo/user-logo';
+import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons';
+import Loading from '../loading/loading';
+import { selectFilm, selectSimilarFilms, selectFilmReviews, selectIsLoadingFilm, selectIsErrorLoadingFilm } from '../../store/films-slice/selector';
 
-function Film({films, comments}: FilmsCommentsProps): JSX.Element {
-  const navigate = useNavigate();
-  UseScrollToTop();
+export default function FilmPage(): JSX.Element {
+  const film = useAppSelector(selectFilm);
+  const filmReviews = useAppSelector(selectFilmReviews);
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const id = params.id;
+  const similarFilms = useAppSelector(selectSimilarFilms);
+  const isLoadingFilm = useAppSelector(selectIsLoadingFilm);
+  const isErrorLoadingFilm = useAppSelector(selectIsErrorLoadingFilm);
 
-  const {id} = useParams<{id: string}>() ;
-  const filmIndexInList = Number(id) - 1;
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    if (String(film?.id) !== id ) {
+      dispatch(fetchSimilarFilmsAction(id));
+      dispatch(fetchFilmAction(id));
+      dispatch(fetchFilmReviewsAction(id));
+    }
 
-  const {
-    name,
-    genre,
-    released,
-    posterImage,
-    backgroundImage,
-  } = films[filmIndexInList];
+  }, [dispatch, id, film?.id]);
+
+  if (isLoadingFilm) {
+    return (
+      <Loading />
+    );
+  }
+
+  if (!film || isErrorLoadingFilm) {
+    return (
+      <NotFound />
+    );
+  }
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{ backgroundColor: `${film.backgroundColor}`} }>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={backgroundImage} alt={name} />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <Logo />
+            <Logo light={false} />
 
-            <ul className="user-block">
-              <UserLogo path={AppRoute.Main} />
-            </ul>
+            <UserBlock />
+
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{name}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{released}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button" onClick={() => navigate(AppRoute.MyList)}>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{films.length}</span>
-                </button>
-                <Link to={`${AppRoute.Film}/${id}/review`} className="btn film-card__button">Add review</Link>
-              </div>
+              <FilmCardButtons film={film}/>
+
             </div>
           </div>
         </div>
-
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={posterImage} alt={name} width="218" height="327" />
+              <img src={film.posterImage} alt={film.name} width="218" height="327" />
             </div>
-
-            <div className="film-card__desc">
-              <Tabs comments={comments} currentFilm={films[filmIndexInList]} />
-            </div>
+            <FilmTabs
+              film={film}
+              filmReviews={filmReviews}
+            />
           </div>
         </div>
       </section>
@@ -86,14 +92,25 @@ function Film({films, comments}: FilmsCommentsProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <FilmsList moreLikeThis currentFilmId={id} films={films} />
+          {
+            similarFilms &&
+            (
+              <FilmsList
+                films={similarFilms}
+                showButton={false}
+              />
+            )
+          }
         </section>
 
-        <Footer />
+        <footer className="page-footer">
+          <Logo light />
+
+          <div className="copyright">
+            <p>© 2019 What to watch Ltd.</p>
+          </div>
+        </footer>
       </div>
     </>
   );
 }
-
-export default Film;
