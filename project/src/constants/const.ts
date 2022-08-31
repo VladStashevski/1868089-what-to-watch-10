@@ -14,14 +14,13 @@ export const MAX_COMMENT_LENGTH = 400;
 
 export enum AppRoute {
   Main = '/',
+  Film = '/films',
+  AddReview = 'review',
+  Player = '/player',
+  Other = '*',
+  NotFound = '/not_found',
   SignIn = '/login',
   MyList = '/mylist',
-  Film = '/films',
-  Review = '/films/:id/review',
-  Player = '/player/:id',
-  NotFound = '/not_found',
-  AddReview = 'review',
-  Other = '*'
 }
 
 export enum AuthorizationStatus {

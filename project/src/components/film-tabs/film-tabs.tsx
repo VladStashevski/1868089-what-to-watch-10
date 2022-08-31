@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Film } from '../../types/films';
-import { FilmReview } from '../../types/reviews';
-import { filmTabNames } from '../../constants/const';
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {Film} from '../../types/films';
+import {FilmReview} from '../../types/reviews';
+import {filmTabNames} from '../../constants/const';
 import FilmDetails from '../film-details/film-details';
 import SingleFilmReviews from '../film-reviews/film-reviews';
 import FilmOverview from '../film-overview/film-overview';
