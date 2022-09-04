@@ -1,6 +1,7 @@
-import {useEffect, useRef} from 'react';
-import {Film} from '../../types/films';
-import {VIDEO_TIMEOUT} from '../../constants/const';
+import { useEffect, useRef } from 'react';
+import { Film } from '../../types/films';
+
+const VIDEO_TIMEOUT = 1000;
 
 type VideoPlayerProps = {
   activeFilm: number | null;

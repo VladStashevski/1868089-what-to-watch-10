@@ -1,20 +1,20 @@
 import {Link, useNavigate} from 'react-router-dom';
 import {Film} from '../../types/films';
-import {AppRoute} from '../../constants/const';
+import {AppRoute} from '../../constants';
 import VideoPlayer from '../../components/video-player/video-player';
 
 type FilmCardProps = {
   film: Film;
   activeFilm: number | null;
-  onFilmCardMouseOverHandler: (id: number) => void;
-  onFilmCardMouseOutHandler: () => void;
+  onFilmCardMouseOver: (id: number) => void;
+  onFilmCardMouseOut: () => void;
 }
 
-export default function FilmCard({ film, activeFilm, onFilmCardMouseOverHandler, onFilmCardMouseOutHandler }: FilmCardProps): JSX.Element {
+export default function FilmCard({ film, activeFilm, onFilmCardMouseOver, onFilmCardMouseOut }: FilmCardProps): JSX.Element {
   const { id, name, previewImage } = film;
   const navigate = useNavigate();
-  const handleMouseOver = (): void => onFilmCardMouseOverHandler(id);
-  const handleMouseOut = onFilmCardMouseOutHandler;
+  const handleMouseOver = (): void => onFilmCardMouseOver(id);
+  const handleMouseOut = onFilmCardMouseOut;
 
   return (
     <article className="small-film-card catalog__films-card"

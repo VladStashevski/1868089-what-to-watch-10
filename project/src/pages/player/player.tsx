@@ -1,11 +1,10 @@
 import {CSSProperties, useRef, useState, useEffect, ChangeEvent} from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
+import NotFound from '../not-found/not-found';
 import {useParams, useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {selectFilms} from '../../store/films-slice/selector';
-import {FILM_LOADER_COLOR, FILM_LOADER_SIZE} from '../../constants/const';
+import {selectFilms} from '../../store/films-slice/select';
 import {getFilmTimeLeft} from '../../utils/utils';
-import ClipLoader from 'react-spinners/ClipLoader';
-import NotFound from '../../components/not-found-page/not-found-page';
 
 const cssOverride: CSSProperties = {
   display: 'block',
@@ -14,6 +13,8 @@ const cssOverride: CSSProperties = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
 };
+const FILM_LOADER_COLOR = '#eee5b5';
+const FILM_LOADER_SIZE = 100;
 
 export default function Player(): JSX.Element {
   const allFilms = useAppSelector(selectFilms);
@@ -180,4 +181,3 @@ export default function Player(): JSX.Element {
     </div>
   );
 }
-

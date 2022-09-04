@@ -1,13 +1,13 @@
 import Logo from '../../components/logo/logo';
-import {useRef, useState, FormEvent} from 'react';
-import {Navigate} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {useAppSelector} from '../../hooks/use-app-selector';
-import {loginAction} from '../../store/api-actions';
-import {AuthData} from '../../types/films';
-import {AppRoute, AuthorizationStatus} from '../../constants/const';
-import {isEmailValid, isPasswordValid} from '../../utils/utils';
-import {selectAuthorizationStatus, selectLoginError} from '../../store/user-process/selector';
+import { useRef, useState, FormEvent } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { loginAction } from '../../store/api-actions';
+import { AuthorizationData } from '../../types/auth-data';
+import { AppRoute, AuthorizationStatus } from '../../constants';
+import { isEmailValid, isPasswordValid } from '../../utils/utils';
+import { selectAuthorizationStatus, selectLoginError } from '../../store/auth-slice/select';
 
 export default function SignIn(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -44,7 +44,7 @@ export default function SignIn(): JSX.Element {
         dispatch(loginAction(({
           login,
           password,
-        }) as AuthData));
+        }) as AuthorizationData));
       }
     }
   };

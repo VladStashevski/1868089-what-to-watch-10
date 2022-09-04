@@ -1,7 +1,7 @@
-import { Film } from '../../types/films';
-import NotFound from '../not-found-page/not-found-page';
-import { getTimeFromMins } from '../../utils/utils';
-import { Fragment } from 'react';
+import {Film} from '../../types/films';
+import NotFound from '../../pages/not-found/not-found';
+import {getTimeFromMins } from '../../utils/utils';
+import {Fragment} from 'react';
 
 type FilmDetailsProps = {
   film: Film;

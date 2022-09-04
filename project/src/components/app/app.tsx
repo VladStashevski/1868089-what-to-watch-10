@@ -1,22 +1,22 @@
-import {AppRoute} from '../../constants/const';
-import {useAppSelector} from '../../hooks/use-app-selector';
 import {Routes, Route} from 'react-router-dom';
-import {selectAuthorizationStatus} from '../../store/user-process/selector';
-import {selectIsLoadingPromo, selectIsErrorLoadingPromo} from '../../store/promo-slice/selector';
-import {selectIsLoadingFilms, selectIsErrorLoadingFilms} from '../../store/films-slice/selector';
-import {isAuthorizationStatusDefined} from '../../utils/utils';
-import Loading from '../../pages/loading/loading';
+import {AppRoute} from '../../constants';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import Loader from '../../pages/loader/loader';
 import HistoryRouter from '../history-router/history-router';
-import MainPage from '../../pages/main/main';
+import Main from '../../pages/main/main';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
 import FilmPage from '../../pages/film/film';
 import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
-import NotFound from '../not-found-page/not-found-page';
+import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from '../../constants/browser-history';
-import Error from '../error/error';
+import {isAuthorizationStatusDefined} from '../../utils/utils';
+import browserHistory from '../../browser-history';
+import {selectAuthorizationStatus} from '../../store/auth-slice/select';
+import {selectIsLoadingPromo, selectIsErrorLoadingPromo} from '../../store/promo-slice/select';
+import {selectIsLoadingFilms, selectIsErrorLoadingFilms} from '../../store/films-slice/select';
+import ServerError from '../server-error/server-error';
 
 function App (): JSX.Element {
   const isLoadingFilms = useAppSelector(selectIsLoadingFilms);
@@ -26,26 +26,23 @@ function App (): JSX.Element {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
   if (!isAuthorizationStatusDefined(authorizationStatus) || isLoadingFilms || isLoadingPromo) {
-    return (<Loading />);
-  }
+    return (<Loader />);}
 
   if (isErrorLoadingFilms || isErrorLoadingPromo) {
-    return (<Error />);
-  }
+    return (<ServerError />);}
 
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage />}/>
-        <Route path={AppRoute.SignIn} element={<SignIn />}/>
+        <Route path={AppRoute.Main} element={<Main />}/>
+        <Route path={AppRoute.SignIn} element={ <SignIn />}/>
         <Route path={AppRoute.MyList} element={<PrivateRoute><MyList /></PrivateRoute>}/>
-        <Route path={AppRoute.Film}>
+        <Route path={AppRoute.Film} >
           <Route path=':id' element={<FilmPage />}></Route>
           <Route path=':id/review' element={<PrivateRoute><AddReview /></PrivateRoute>}/>
         </Route>
-        <Route path={AppRoute.Player}><Route path=':id' element={<Player />}/></Route>
-        <Route path={AppRoute.NotFound} element={<NotFound />}/>
-        <Route path={AppRoute.Other} element={<NotFound />}/>
+        <Route path={AppRoute.Player}><Route path=':id' element={ <Player /> }/></Route>
+        <Route path='*' element={ <NotFound /> }/>
       </Routes>
     </HistoryRouter>
   );

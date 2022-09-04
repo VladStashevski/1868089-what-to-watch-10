@@ -1,5 +1,5 @@
 import Review from '../film-review/film-review';
-import {FilmReview} from '../../types/reviews';
+import { FilmReview } from '../../types/reviews';
 import NoReviews from '../no-reviews/no-reviews';
 
 type SingleFilmReviewsProps = {

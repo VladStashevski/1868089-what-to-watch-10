@@ -1,20 +1,11 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import {Film} from '../types/films';
-import {AuthorizationStatus, MAX_GENRE_FILTER_COUNT, SECONDS_IN_HOUR, СheckCorrectSignin} from '../constants/const';
-
-export const isAuthorizationStatusDefined = (authorizationStatus: AuthorizationStatus): boolean =>
-  authorizationStatus !== AuthorizationStatus.Unknown;
-
-export const filterSimilarMovies = (data: Film[], id: string): Film[] =>
-  data.slice(0, MAX_GENRE_FILTER_COUNT).filter((movie) => String(movie.id) !== id);
-
-export const isEmailValid = (value: string): boolean => СheckCorrectSignin.Email.test(value);
-export const isPasswordValid = (value: string): boolean => СheckCorrectSignin.Password.test(value);
+import {AuthorizationStatus, MAX_GENRE_FILTER_COUNT, SECONDS_IN_HOUR, SignInRegExps} from '../constants';
 
 dayjs.extend(duration);
 
-export const getFilmRating = (filmRate: number): string => {
+export const getFilmRateLevel = (filmRate: number): string => {
   if (filmRate >= 0 && filmRate <= 3) {
     return 'Bad';
   } else if (filmRate > 3 && filmRate <= 5) {
@@ -51,3 +42,12 @@ export const getReviewDateTime = (data: string): string => dayjs(data).format('Y
 
 export const getGenres = (filmList: Film[]): string[] =>
   [...new Set(filmList.map((film) => film.genre))];
+
+export const isAuthorizationStatusDefined = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus !== AuthorizationStatus.Unknown;
+
+export const filterSimilarMovies = (data: Film[], id: string): Film[] =>
+  data.slice(0, MAX_GENRE_FILTER_COUNT).filter((movie) => String(movie.id) !== id);
+
+export const isEmailValid = (value: string): boolean => SignInRegExps.Email.test(value);
+export const isPasswordValid = (value: string): boolean => SignInRegExps.Password.test(value);

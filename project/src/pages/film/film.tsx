@@ -1,16 +1,16 @@
 import Logo from '../../components/logo/logo';
-import {useParams} from 'react-router-dom';
-import {useEffect} from 'react';
-import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {useAppSelector} from '../../hooks/use-app-selector';
-import {fetchSimilarFilmsAction, fetchFilmAction, fetchFilmReviewsAction } from '../../store/api-actions';
-import NotFound from '../../components/not-found-page/not-found-page';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { fetchSimilarFilmsAction, fetchFilmAction, fetchFilmReviewsAction } from '../../store/api-actions';
+import NotFound from '../not-found/not-found';
 import FilmsList from '../../components/films-list/films-list';
-import FilmTabs from '../../components/film-tabs/film-tabs';
-import UserBlock from '../../components/user-logo/user-logo';
+import FilmTabs from '../../components/film-tabs.tsx/film-tabs';
+import UserBlock from '../../components/user-block/user-block';
 import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons';
-import Loading from '../loading/loading';
-import { selectFilm, selectSimilarFilms, selectFilmReviews, selectIsLoadingFilm, selectIsErrorLoadingFilm } from '../../store/films-slice/selector';
+import Loader from '../../pages/loader/loader';
+import { selectFilm, selectSimilarFilms, selectFilmReviews, selectIsLoadingFilm, selectIsErrorLoadingFilm } from '../../store/films-slice/select';
 
 export default function FilmPage(): JSX.Element {
   const film = useAppSelector(selectFilm);
@@ -36,7 +36,7 @@ export default function FilmPage(): JSX.Element {
 
   if (isLoadingFilm) {
     return (
-      <Loading />
+      <Loader />
     );
   }
 

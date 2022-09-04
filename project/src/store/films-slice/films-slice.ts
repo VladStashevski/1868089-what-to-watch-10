@@ -1,8 +1,15 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {SliceName, FILMS_SHOWN_COUNT} from '../../constants/const';
-import {Film} from '../../types/films';
-import {FilmReview, NewReview} from '../../types/reviews';
-import {fetchFilmsAction, fetchFilmAction, fetchSimilarFilmsAction, fetchFilmReviewsAction, sendNewReviewAction, sendFavoriteFilmStatusAction} from '../api-actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { SliceName, FILMS_SHOWN_COUNT } from '../../constants';
+import { Film } from '../../types/films';
+import { FilmReview, NewReview } from '../../types/reviews';
+import {
+  fetchFilmsAction,
+  fetchFilmAction,
+  fetchSimilarFilmsAction,
+  fetchFilmReviewsAction,
+  sendNewReviewAction,
+  sendFavoriteFilmStatusAction
+} from '../api-actions';
 
 
 type FilmsSliceState = {
@@ -110,4 +117,4 @@ export const filmsSlice = createSlice({
   },
 });
 
-export const {clearSelectedGenre, setSelectedGenre, showMoreFilms, resetFilmsShownCount} = filmsSlice.actions;
+export const { clearSelectedGenre, setSelectedGenre, showMoreFilms, resetFilmsShownCount } = filmsSlice.actions;

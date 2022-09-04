@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {SliceName} from '../../constants/const';
-import {Film} from '../../types/films';
-import {fetchPromoFilmAction, sendFavoriteFilmStatusAction} from '../api-actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { SliceName } from '../../constants';
+import { Film } from '../../types/films';
+import { fetchPromoFilmAction, sendFavoriteFilmStatusAction } from '../api-actions';
 
 type PromoSliceTypes = {
   promoFilm: Film | null;

@@ -1,13 +1,13 @@
-import {useEffect} from 'react';
-import {useAppSelector} from '../../hooks/use-app-selector';
-import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {selectFavoriteFilms, selectIsLoadingFavoriteFilms, selectIsLoadedFavoriteFilms, selectIsErrorLoadingFavoriteFilms } from '../../store/favorite-slice/selector';
-import {fetchFavoriteFilmsAction} from '../../store/api-actions';
+import { useEffect } from 'react';
 import Logo from '../../components/logo/logo';
 import FilmsList from '../../components/films-list/films-list';
-import Loading from '../loading/loading';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import UserBlock from '../../components/user-block/user-block';
+import Loader from '../../pages/loader/loader';
 import NoFavoriteFilms from '../../components/no-favorite-films/no-favorite-films';
-import UserBlock from '../../components/user-logo/user-logo';
+import { selectFavoriteFilms, selectIsLoadingFavoriteFilms, selectIsLoadedFavoriteFilms, selectIsErrorLoadingFavoriteFilms } from '../../store/favorite-slice/select';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 
 export default function MyList(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export default function MyList(): JSX.Element {
 
   if (isLoadingFavoriteFilms) {
     return (
-      <Loading />
+      <Loader />
     );
   }
 

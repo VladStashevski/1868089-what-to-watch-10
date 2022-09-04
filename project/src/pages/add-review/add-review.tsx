@@ -2,10 +2,10 @@ import Logo from '../../components/logo/logo';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import NotFound from '../../components/not-found-page/not-found-page';
-import { AppRoute } from '../../constants/const';
-import UserLogo from '../../components/user-logo/user-logo';
-import { selectFilms } from '../../store/films-slice/selector';
+import NotFound from '../not-found/not-found';
+import { AppRoute } from '../../constants';
+import UserBlock from '../../components/user-block/user-block';
+import { selectFilms } from '../../store/films-slice/select';
 
 export default function AddReview(): JSX.Element {
   const allFilms = useAppSelector(selectFilms);
@@ -42,7 +42,7 @@ export default function AddReview(): JSX.Element {
             </ul>
           </nav>
 
-          <UserLogo />
+          <UserBlock />
 
         </header>
 

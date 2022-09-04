@@ -1,15 +1,15 @@
-import {useState, useEffect} from 'react';
-import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {useAppSelector} from '../../hooks/use-app-selector';
-import PromoFilm from '../../components/advert-film/advert-film';
+import { useState, useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { Film } from '../../types/films';
+import { clearSelectedGenre, resetFilmsShownCount } from '../../store/films-slice/films-slice';
+import { selectFilms, selectActiveGenre, selectFilmsShownCount } from '../../store/films-slice/select';
+import PromoFilm from '../../components/promo-film/promo-film';
 import Logo from '../../components/logo/logo';
-import GenresList from '../../components/genres-list/genres-list';
+import GenreList from '../../components/genre-list/genre-list';
 import FilmsList from '../../components/films-list/films-list';
-import {Film} from '../../types/films';
-import {clearSelectedGenre, resetFilmsShownCount} from '../../store/films-slice/films-slice';
-import {selectFilms, selectActiveGenre, selectFilmsShownCount} from '../../store/films-slice/selector';
 
-export default function MainPage(): JSX.Element {
+export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const allFilms = useAppSelector(selectFilms);
   const [filmsByGenre, setFilmsByGenre] = useState<Film[]>([]);
@@ -42,7 +42,7 @@ export default function MainPage(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            <GenresList />
+            <GenreList />
           </ul>
           <div className="catalog__films-list-main-wrap">
             <FilmsList

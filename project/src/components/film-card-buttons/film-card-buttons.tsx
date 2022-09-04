@@ -2,11 +2,11 @@ import {useEffect, useState} from 'react';
 import {useNavigate, Link, useParams} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {selectAuthorizationStatus} from '../../store/user-process/selector';
-import {AppRoute, AuthorizationStatus} from '../../constants/const';
+import {selectAuthorizationStatus} from '../../store/auth-slice/select';
+import {AppRoute, AuthorizationStatus} from '../../constants';
 import {Film} from '../../types/films';
-import {selectFavoriteFilms} from '../../store/favorite-slice/selector';
-import {fetchFavoriteFilmsAction, sendFavoriteFilmStatusAction} from '../../store/api-actions';
+import {selectFavoriteFilms} from '../../store/favorite-slice/select';
+import {fetchFavoriteFilmsAction, sendFavoriteFilmStatusAction } from '../../store/api-actions';
 
 type FilmCardButtonsProps = {
   film: Film;

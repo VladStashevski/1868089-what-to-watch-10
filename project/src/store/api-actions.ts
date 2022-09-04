@@ -1,16 +1,16 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';
-import {Film} from '../types/films';
-import {FilmStatus} from '../types/films';
-import {FilmReview, NewReview} from '../types/reviews';
-import {AuthData} from '../types/films';
-import {UserData} from '../types/films';
-import {redirectToRoute} from './action';
-import {saveToken, dropToken} from '../services/token';
-import {clearLoginError} from './user-process/user-pocess';
-import {APIRoute, AppRoute} from '../constants/const';
-import {filterSimilarMovies} from '../utils/utils';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AppDispatch, State } from '../types/state.js';
+import { Film } from '../types/films';
+import { FilmStatus } from '../types/film-status.js';
+import { FilmReview, NewReview } from '../types/reviews';
+import { AuthorizationData } from '../types/auth-data';
+import { UserData } from '../types/user-data';
+import { redirectToRoute } from './actions';
+import { saveToken, dropToken } from '../services/token';
+import { clearLoginError } from '../store/auth-slice/auth-slice';
+import { APIRoute, AppRoute } from '../constants';
+import { filterSimilarMovies } from '../utils/utils';
 
 export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   state: State,
@@ -113,7 +113,7 @@ export const getUserDataAction = createAsyncThunk<UserData, void, {
   },
 );
 
-export const loginAction = createAsyncThunk<UserData | null, AuthData, {
+export const loginAction = createAsyncThunk<UserData | null, AuthorizationData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

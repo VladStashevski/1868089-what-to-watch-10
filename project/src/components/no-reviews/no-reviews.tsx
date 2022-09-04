@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { useParams } from 'react-router-dom';
-import NotFound from '../not-found-page/not-found-page';
-import { selectFilms } from '../../store/films-slice/selector';
+import NotFound from '../../pages/not-found/not-found';
+import { selectFilms } from '../../store/films-slice/select';
 
 export default function NoReviews(): JSX.Element {
   const allFilms = useAppSelector(selectFilms);

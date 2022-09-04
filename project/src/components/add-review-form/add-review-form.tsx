@@ -1,13 +1,16 @@
-import {MAX_RATE, DEFAULT_RATE, MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH} from '../../constants/const';
 import {Fragment, useState, FormEvent} from 'react';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {sendNewReviewAction} from '../../store/api-actions';
 import {NewReview} from '../../types/reviews';
-import {selectIsUploadingReview} from '../../store/films-slice/selector';
+import {selectIsUploadingReview} from '../../store/films-slice/select';
 
 export default function AddReviewForm() {
+  const MAX_RATE = 10;
+  const DEFAULT_RATE = 0;
+  const MIN_USER_REVIEW_LENGTH = 50;
+  const MAX_USER_REVIEW_LENGTH = 400;
   const [userRating, setUserRating] = useState(DEFAULT_RATE);
   const [userReview, setUserReview] = useState('');
   const dispatch = useAppDispatch();
@@ -15,17 +18,17 @@ export default function AddReviewForm() {
   const id = params.id;
   const isDataUploading = useAppSelector(selectIsUploadingReview);
 
-  const textChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextChanger = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const reviewText = event.target.value;
     setUserReview(reviewText);
   };
 
-  const ratingChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     const rating = Number(event.target.value);
     setUserRating(rating);
   };
 
-  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id && userReview !== null && userRating !== null) {
       dispatch(sendNewReviewAction(({
@@ -39,7 +42,7 @@ export default function AddReviewForm() {
   return (
     <form
       className="add-review__form"
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit}
     >
       <div className="rating">
         <div className="rating__stars">
@@ -54,7 +57,7 @@ export default function AddReviewForm() {
                     type="radio"
                     name="rating"
                     value={number}
-                    onChange={ratingChangeHandler}
+                    onChange={handleRatingChanger}
                     defaultChecked={number === userRating}
                   />
                   <label
@@ -71,7 +74,7 @@ export default function AddReviewForm() {
 
       <div className="add-review__text">
         <textarea
-          onChange={textChangeHandler}
+          onChange={handleTextChanger}
           value={userReview}
           className="add-review__textarea"
           name="review-text"
@@ -82,7 +85,7 @@ export default function AddReviewForm() {
           <button
             className="add-review__btn"
             type="submit"
-            disabled={isDataUploading || userRating === DEFAULT_RATE || userReview.length < MIN_COMMENT_LENGTH || userReview.length > MAX_COMMENT_LENGTH}
+            disabled={isDataUploading || userRating === DEFAULT_RATE || userReview.length < MIN_USER_REVIEW_LENGTH || userReview.length > MAX_USER_REVIEW_LENGTH}
           >
             Post
           </button>

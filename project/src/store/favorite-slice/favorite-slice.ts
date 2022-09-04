@@ -1,8 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {SliceName} from '../../constants/const';
-import {Film} from '../../types/films';
-import {fetchFavoriteFilmsAction} from '../api-actions';
-import {logoutAction} from '../api-actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { SliceName } from '../../constants';
+import { Film } from '../../types/films';
+import { fetchFavoriteFilmsAction } from '../api-actions';
+import { logoutAction } from '../api-actions';
 
 type FavoriteSliceTypes = {
   favoriteFilms: Film[];
